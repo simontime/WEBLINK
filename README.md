@@ -11,4 +11,6 @@ Still quite a work-in-progress! `(OL)` in source code = known/inferred original 
 - The contents of the `asm85` folder from the SDK
 
 ## Building
-To build, run `build.bat`. Generates a ROM to `output/WEBLINK.BIN`.
+To build, run `build.bat`.
+
+Generates a ROM to `output/WEBLINK.BIN`.
