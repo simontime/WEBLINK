@@ -7,7 +7,7 @@ Still quite a work-in-progress! `(OL)` in source code = known/inferred original 
 ## Prerequisites
 ### For tools directory
 - [gcimagetool](https://github.com/simontime/gcimagetool) (gcimagetool.exe - **included**)
-- MS-DOS Player (msdos.exe)
+- [MS-DOS Player](https://takeda-toshiya.my.coocan.jp/msdos/index.html) (msdos.exe)
 - The contents of the `asm85` folder from the SDK
 
 ## Building
