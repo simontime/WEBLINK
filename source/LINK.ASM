@@ -32,16 +32,16 @@ link_intro:
     ; Start playing music
     call    play_melody
     mov     r8,#3
-	; Read animation address
+    ; Read animation address
     movw    rr12,anim_addr
-	; Check if all frames played
+    ; Check if all frames played
     mov     r3,anim_frame
     cmp     r3,#13
-	; Nope, draw next frame
+    ; Nope, draw next frame
     br      ne,intro_draw
     mov     r0,anim_bank
     mov     mem_d1,r0
-	; 
+    ; 
     addw    rr12,#anim_frame_len
     bbc     r12,#7,lbl_603ch
     inc     anim_bank
@@ -74,25 +74,25 @@ intro_delay:
 
 ; Web Link menu screen
 link_menu:
-	; Start playing melody
+    ; Start playing melody
     call    play_melody
-	; Start if 'A' key pressed
+    ; Start if 'A' key pressed
     cmp     last_key,#key_a
     br      eq,menu_start
-	;
-	; Check if screen touched within bounds
-	;
-	; Out of bounds, draw next animation frame
+    ;
+    ; Check if screen touched within bounds
+    ;
+    ; Out of bounds, draw next animation frame
     cmp     last_key,#7*13+5
     br      lt,menu_draw
     cmp     last_key,#8*13+8
     br      gt,menu_draw
-	; In bounds, start linking
+    ; In bounds, start linking
     cmp     last_key,#7*13+9
     br      lt,menu_start
     cmp     last_key,#8*13+5
     br      gt,menu_start
-	;
+    ;
 menu_draw:
     movw    rr8,#0a0c8h ; height, width (160x200)
     mov     r10,#8 ; flags - no compression
@@ -118,50 +118,50 @@ menu_start:
 
 ; Searches for high score entry (savegame) in SRAM
 find_hiscr:
-	; Set search start address (0xfc23)
+    ; Set search start address (0xfc23)
     movw    rr2,#hiscr_data_start-hiscr_entry_length+hiscr_str_offset
-	; Search for 10 entries (+1 for dbnz)
+    ; Search for 10 entries (+1 for dbnz)
     mov     r6,#hiscr_num_entries+1
 next_entry:
-	; Check next entry if not exhausted
+    ; Check next entry if not exhausted
     dbnz    r6,find_next
-	; Entry not found - set carry flag
+    ; Entry not found - set carry flag
     setc
     ret
 find_next:
-	; Advance to next high score entry (length 64)
+    ; Advance to next high score entry (length 64)
     addw    rr2,#hiscr_entry_length
-	; Set addresses
+    ; Set addresses
     movw    rr10,rr2
     movw    rr8,#tmp_hiscr_str
-	; Compare up to 11 characters (+1 for dbnz)
+    ; Compare up to 11 characters (+1 for dbnz)
     mov     r7,#hiscr_str_length+1
 str_loop:
-	; Compare character in high score to temp
+    ; Compare character in high score to temp
     mov     r1,(rr10)+
     cmp     r1,(rr8)+
-	; If characters not equal, check next entry
+    ; If characters not equal, check next entry
     br      ne,next_entry
-	; Check for string end marker (1)
+    ; Check for string end marker (1)
     cmp     r1,#hiscr_str_end
-	; If end marker, check ID
+    ; If end marker, check ID
     br      eq,check_id
-	; Check next character if not exhausted
+    ; Check next character if not exhausted
     dbnz    r7,str_loop
 check_id:
-	; Go to start (ID section) of high score entry (-3)
+    ; Go to start (ID section) of high score entry (-3)
     subw    rr2,#hiscr_str_offset
-	; OR the two program ID bytes together
+    ; OR the two program ID bytes together
     mov     r1,@rr2
     or      r1,1(rr2)
-	; If either byte is not 0, it's a valid ID
+    ; If either byte is not 0, it's a valid ID
     br      nz,valid_id
-	; Go to string section of high score entry (+3)
+    ; Go to string section of high score entry (+3)
     addw    rr2,#hiscr_str_offset
-	; Check next entry
+    ; Check next entry
     br      next_entry
 valid_id:
-	; Entry found - clear carry flag
+    ; Entry found - clear carry flag
     clrc
     ret
 
@@ -246,7 +246,7 @@ lbl_61aeh:
 
 ; Check and handle command received
 check_cmd:
-	; Try and receive byte from PC
+    ; Try and receive byte from PC
     call    Receive_a_byte
     br      c,no_recv
 lbl_61b9h:
@@ -466,19 +466,19 @@ num_2:
 
 cmd_funcs:
     dw      lbl_61f7h
-	dw      lbl_61fch
-	dw      lbl_621dh
-	dw      lbl_6243h
-	dw      lbl_62b6h
-	dw      lbl_6316h
+    dw      lbl_61fch
+    dw      lbl_621dh
+    dw      lbl_6243h
+    dw      lbl_62b6h
+    dw      lbl_6316h
 
 str_table:
     dw      str_established
-	dw      str_terminated
-	dw      str_list_sent
-	dw      str_data_sent
-	dw      str_overwrite
-	dw      str_write_text
+    dw      str_terminated
+    dw      str_list_sent
+    dw      str_data_sent
+    dw      str_overwrite
+    dw      str_write_text
 
 str_established:
     dm      'Link Established.   '

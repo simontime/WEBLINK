@@ -11,9 +11,9 @@
     global  stop_speech
     global  play_melody
     global  stop_melody
-	global  start_pcm_speech
-	global  start_sg_speech
-	global  stop_speech1
+    global  start_pcm_speech
+    global  start_sg_speech
+    global  stop_speech1
     global  init_isr
     global  restore_isr
 
@@ -878,7 +878,7 @@ start_pcm_speech:
     pop     r4
     popw    rr2
     mov     r8,#5eh
-	; Branch if already playing
+    ; Branch if already playing
     bbs     sp_control,#0,pcm_playing
     movw    rr0,TMR1_new_isr
     movw    rr10,rr0

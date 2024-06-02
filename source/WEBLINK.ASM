@@ -54,14 +54,14 @@ func_set:
     movw    rr2,func_ptr
     movw    rr0,@rr2
     movw    jmp_addr,rr0
-	; Initialise animation frame
+    ; Initialise animation frame
     movw    anim_frame,#0
     ; Clear speech control bit 6
     bclr    sp_control,#6
     ; Set up keys
     mov     r0,#kctrl_membrane ; flags
     call    CTRL_KBD
-	; Return 0
+    ; Return 0
     clr     r0
     ret
 
@@ -90,7 +90,7 @@ reset:
     call    mem_clean
     ret
 bad_entry:
-	; Return 3
+    ; Return 3
     mov     r0,#3
     ret
 init:
@@ -107,7 +107,7 @@ init:
     call    Disp_setup
     ; Set graphics mode (compound)
     call    set_gfx_mode
-	; Return 0
+    ; Return 0
     clr     r0
     ret
 
@@ -256,7 +256,7 @@ lbl_416fh:
 ; Selects graphics mode (always compound)
 set_gfx_mode:
     clr     r8 ; mode (compound)
-	; Presumably commented out code here
+    ; Presumably commented out code here
     br      stub1
     mov     r8,#1 ; mode (overwrite)
 stub1:
@@ -568,9 +568,9 @@ uart_setup:
 
 ; Send a byte via UART
 uart_send:
-	; 
+    ; 
     call    Send_a_byte
-	; Infinite loop until carry flag set
+    ; Infinite loop until carry flag set
     br      c,uart_send
     push    r0
     add     r0,send_checksum
